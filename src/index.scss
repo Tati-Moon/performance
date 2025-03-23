@@ -1,0 +1,46 @@
+@use './styles/colors.scss' as *;
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: $dark-background;
+  color: $text-light;
+}
+
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  color: $text-light;
+}
+
+@mixin theme($mode) {
+  @if $mode == dark {
+    background-color: $dark-background;
+    color: $text-light;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      color: $text-light;
+    }
+  } @else {
+    background-color: $light-background;
+    color: $text-black;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      color: $text-black;
+    }
+  }
+}
+
+.light {
+  @include theme(light);
+}
+.dark {
+  @include theme(dark);
+}
