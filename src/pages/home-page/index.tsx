@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import styles from './index.module.scss';
 import CardList from '../../components/home-page/card-list';
 import { useFetchAllCountriesQuery } from '../../services/countriesAPI';
+import Filter from '../../components/home-page/filter';
+import Sort from '../../components/home-page/sort';
 
 const HomePage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,7 +48,7 @@ const HomePage: React.FC = () => {
   }, [filteredCountries, sortBy, sortOrder]);
 
   const handleSearch = useCallback((term: string) => {
-    setSearchTerm(term); // Убрано сохранение в localStorage
+    setSearchTerm(term);
   }, []);
 
   const handleRegionChange = useCallback((region: string) => {
@@ -78,36 +80,15 @@ const HomePage: React.FC = () => {
           </div>
         </div>
         <Search onSearch={handleSearch} />
-        <div className={styles.filterContainer}>
-          <select
-            value={selectedRegion}
-            onChange={(e) => handleRegionChange(e.target.value)}
-            className={styles.filterSelect}
-          >
-            <option value="">All Regions</option>
-            <option value="Africa">Africa</option>
-            <option value="Americas">Americas</option>
-            <option value="Asia">Asia</option>
-            <option value="Europe">Europe</option>
-            <option value="Oceania">Oceania</option>
-          </select>
-        </div>
-        <div className={styles.sortContainer}>
-          <select
-            value={`${sortBy}-${sortOrder}`}
-            onChange={handleSortChange}
-            className={styles.sortSelect}
-          >
-            <option value="name-asc">Sort by Name (A-Z)</option>
-            <option value="name-desc">Sort by Name (Z-A)</option>
-            <option value="population-asc">
-              Sort by Population (Low to High)
-            </option>
-            <option value="population-desc">
-              Sort by Population (High to Low)
-            </option>
-          </select>
-        </div>
+        <Filter
+          selectedRegion={selectedRegion}
+          onRegionChange={handleRegionChange}
+        />
+        <Sort
+          sortBy={sortBy}
+          sortOrder={sortOrder}
+          onSortChange={handleSortChange}
+        />
       </div>
       <h1>Country Search</h1>
 

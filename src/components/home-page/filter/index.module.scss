@@ -1,0 +1,26 @@
+@use '../../../styles/colors.scss' as *;
+
+.filterContainer {
+  .filterSelect {
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: $dark-menu;
+    color: $text-light;
+    cursor: pointer;
+    border: 1px solid $text-light;
+
+    &:focus {
+      outline: none;
+      border-color: $red-button;
+    }
+  }
+
+  &_light {
+    .filterContainer {
+      .filterSelect {
+        background-color: $light-menu;
+        color: $text-black;
+      }
+    }
+  }
+}
