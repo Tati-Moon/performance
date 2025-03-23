@@ -16,11 +16,9 @@
   }
 
   &_light {
-    .filterContainer {
-      .filterSelect {
-        background-color: $light-menu;
-        color: $text-black;
-      }
+    .filterSelect {
+      background-color: $light-menu;
+      color: $text-black;
     }
   }
 }
