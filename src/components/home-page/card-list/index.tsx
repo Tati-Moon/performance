@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from './card';
 import styles from './index.module.scss';
 import loadGif from '../../../assets/icons/load.gif';
@@ -14,6 +14,20 @@ const CardList: React.FC<CardListProps> = ({ results, loading, error }) => {
   const [visitedCountries, setVisitedCountries] = useState<Set<string>>(
     new Set()
   );
+
+  useEffect(() => {
+    const savedVisitedCountries = localStorage.getItem('visitedCountries');
+    if (savedVisitedCountries) {
+      setVisitedCountries(new Set(JSON.parse(savedVisitedCountries)));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      'visitedCountries',
+      JSON.stringify(Array.from(visitedCountries))
+    );
+  }, [visitedCountries]);
 
   const toggleVisitedCountry = (countryCode: string) => {
     setVisitedCountries((prev) => {
