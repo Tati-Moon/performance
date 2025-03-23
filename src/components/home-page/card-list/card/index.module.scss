@@ -12,6 +12,17 @@
     background-color: $gray-table-hover;
   }
 
+  .visited {
+    border: 2px solid green;
+    background-color: $text-light;
+  }
+
+  .visitedBadge {
+    color: green;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
   .cardContent {
     display: flex;
     flex-direction: row;

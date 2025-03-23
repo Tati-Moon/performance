@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from './card';
 import styles from './index.module.scss';
 import loadGif from '../../../assets/icons/load.gif';
@@ -11,6 +11,22 @@ interface CardListProps {
 }
 
 const CardList: React.FC<CardListProps> = ({ results, loading, error }) => {
+  const [visitedCountries, setVisitedCountries] = useState<Set<string>>(
+    new Set()
+  );
+
+  const toggleVisitedCountry = (countryCode: string) => {
+    setVisitedCountries((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(countryCode)) {
+        newSet.delete(countryCode);
+      } else {
+        newSet.add(countryCode);
+      }
+      return newSet;
+    });
+  };
+
   if (loading) {
     return (
       <div className={styles.loading}>
@@ -41,12 +57,16 @@ const CardList: React.FC<CardListProps> = ({ results, loading, error }) => {
   }
 
   return (
-    <div>
-      <div className={styles.cardList}>
-        {results.map((item) => (
-          <Card key={item.cca3} name={item.name.common} details={item} />
-        ))}
-      </div>
+    <div className={styles.cardList}>
+      {results.map((item) => (
+        <Card
+          key={item.cca3}
+          name={item.name.common}
+          details={item}
+          isVisited={visitedCountries.has(item.cca3)}
+          onClick={() => toggleVisitedCountry(item.cca3)}
+        />
+      ))}
     </div>
   );
 };

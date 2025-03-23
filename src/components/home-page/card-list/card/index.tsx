@@ -7,9 +7,11 @@ import classNames from 'classnames';
 interface CardProps {
   name: string;
   details: ICountryDetail;
+  isVisited: boolean;
+  onClick: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ name, details }) => {
+const Card: React.FC<CardProps> = ({ name, details, isVisited, onClick }) => {
   const themeContext = useContext(ThemeContext);
   const { theme } = themeContext;
   const isLight = theme === 'light';
@@ -18,7 +20,9 @@ const Card: React.FC<CardProps> = ({ name, details }) => {
     <div
       className={classNames(styles.cardContainer, {
         [styles.cardContainer_light]: isLight,
+        [styles.visited]: isVisited,
       })}
+      onClick={onClick}
     >
       <div className={styles.cardContent}>
         <div className={styles.flagContainer}>
@@ -31,6 +35,7 @@ const Card: React.FC<CardProps> = ({ name, details }) => {
 
         <div className={styles.cardHeader}>
           <h4 className={styles.cardName}>{name}</h4>
+          {isVisited && <span className={styles.visitedBadge}>✅ Visited</span>}
         </div>
 
         <div className={styles.cardDetails}>
